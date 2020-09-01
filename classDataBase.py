@@ -3,7 +3,7 @@ import sqlite3
 class bd:
 
     def __init__(self):
-        self.conection = sqlite3.connect('C:\\Users\\Igor\Documents\\Sistema de Vendas\\SalesSystem-master\\SalesDataBaseTemp.db')
+        self.conection = sqlite3.connect('C:\\Users\\Igor\Documents\\Sistema de Vendas\\SalesSystem-master\\SalesDataBase.db')
         self.cur = self.conection.cursor()
 
     def registerProduct(self, barCode, name, purchasePrice):
@@ -13,12 +13,35 @@ class bd:
         self.cur.execute(product)
         self.conection.commit()
 
+    def registerSale(self, barCode, nome, quant, valor, total, data):
+        #INSERIR DADOS NA TABELA DE VENDAS
+        sale = 'INSERT INTO sales (bar_code, nome, quantidade, valor, total, data) VALUES({}, "{}", {}, {}, {}, {})'.format(barCode, nome, quant, valor, total, data)
+        
+        self.cur.execute(sale)
+        self.conection.commit()
 
+    def getProduct(self, barCode):
+        
+        show = "SELECT * FROM products WHERE bar_code = {}".format(barCode)
+        self.cur.execute(show)
+
+        product = self.cur.fetchall()
+
+        return product
+
+    def createTableSale(self):
+
+        command = 'Create table sales ( bar_code int, nome varchar(30), quantidade int, valor double, total double, data date )'
+
+        self.cur.execute(command)
+        self.conection.commit()
 
 BancoDados = bd()
-#BancoDados.createTable()
+#BancoDados.createTableSale()
 
-    """
+a = '1234567891012'
+
+"""
     def excluirTable(self):
         
         t = 'drop table product'
@@ -31,5 +54,7 @@ BancoDados = bd()
         command = 'Create table products ( bar_code int primary_key, nome varchar(30), valor double)'
 
         self.cur.execute(command)
-        self.conection.commit()"""
+        self.conection.commit()
+        
+    """
 

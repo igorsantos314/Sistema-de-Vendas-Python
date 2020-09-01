@@ -1,5 +1,6 @@
 from tkinter import *
 from classDataBase import bd
+from tkinter import messagebox
 
 class interfaceProduct(Frame):
 
@@ -15,22 +16,22 @@ class interfaceProduct(Frame):
         self.window.title('Product Register')
 
         #labels information
-        lblName = Label(text='Nome do Produto:', font=defaultFont)
+        lblName = Label(self.window, text='Nome do Produto:', font=defaultFont)
         lblName.pack(pady=5)
 
-        self.etName = Entry(font=defaultFont)
+        self.etName = Entry(self.window, font=defaultFont)
         self.etName.pack(pady=5)
 
-        lblCode = Label(text='Codigo do Produto:', font=defaultFont)
+        lblCode = Label(self.window, text='Codigo do Produto:', font=defaultFont)
         lblCode.pack(pady=5)
 
-        self.etCode = Entry(font=defaultFont)
+        self.etCode = Entry(self.window, font=defaultFont)
         self.etCode.pack(pady=5)
 
-        lblPurchasePrice = Label(text='Valor R$:', font=defaultFont)
+        lblPurchasePrice = Label(self.window, text='Valor R$:', font=defaultFont)
         lblPurchasePrice.pack(pady=5)
 
-        self.etPurchasePrice = Entry(font=defaultFont)
+        self.etPurchasePrice = Entry(self.window, font=defaultFont)
         self.etPurchasePrice.pack(pady=5)
 
         #Menu
@@ -44,6 +45,9 @@ class interfaceProduct(Frame):
         self.window.config(menu=myMenu)
         self.window.mainloop()
 
+        # ----------------------------- JANELA FECHADA -----------------------------
+
+        
     #gets
     def getEtName(self):
         return self.etName.get().upper()
@@ -56,17 +60,25 @@ class interfaceProduct(Frame):
         
     #cadastrar produto
     def setProduct(self):
+        
+        try:
+            nomeProd = self.getEtName()
 
-        self.dataBase.registerProduct(self.getEtCode(), self.getEtName(), self.getEtPurchasePrice())
-        #self.dataBase.registerProduct("TECLADO MULTILASER", '1234567891011', 5, 120.25, 150.50, 30.25)
+            #TRATAR TAMANHO DA PALAVRA
+            if len(nomeProd) > 14:
+                nomeProd = nomeProd[:14]
+
+            self.dataBase.registerProduct(self.getEtCode(), nomeProd, self.getEtPurchasePrice())
+            messagebox.showinfo('','PRODUTO CADASTRADO COM SUCESSO !')
+        
+        except:
+            messagebox.showerror('NÃO FOI POSSÍVEL CADASTRAR ESTE PRODUTO','VERIFIQUE SE AS INFORMAÇÕES ESTÃO CORRETAS!')
 
         #limpar campos
-        self.clearEts()
+        self.clearEts()    
 
     #limpar campos
     def clearEts(self):
         self.etName.delete(0, END)
         self.etCode.delete(0, END)
         self.etPurchasePrice.delete(0, END)
-
-interfaceProduct()
