@@ -143,7 +143,7 @@ class interfaceSales(Frame):
                     if len(self.productName) >= 8:
                         return self.productName[:8]
 
-                    #RETORNA A STRING FORMATADA
+                    #RETORNA A STRING FORMATADA 
                     return '{}{}'.format(self.productName, ''*(8 - len(self.productName)))
 
                 nomeP = tratarNome()

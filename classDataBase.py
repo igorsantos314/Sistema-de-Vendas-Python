@@ -29,6 +29,17 @@ class bd:
 
         return product
 
+    def getProductsSales(self, data):
+
+        #RETORNA LISTA DE PRODUTOS VENDIDOS POR DATA
+        show = "SELECT * FROM sales WHERE data = {}".format(data)
+        self.cur.execute(show)
+
+        listProduct = self.cur.fetchall()
+
+        return listProduct
+
+
     def createTableSale(self):
 
         command = 'Create table sales ( bar_code int, nome varchar(30), quantidade int, valor double, total double, data date )'
