@@ -1,9 +1,12 @@
 import sqlite3
+import os
 
 class bd:
 
     def __init__(self):
-        self.conection = sqlite3.connect('C:\\Users\\Igor\Documents\\Sistema de Vendas\\SalesSystem-master\\SalesDataBase.db')
+        caminhoAtual = os.getcwd()
+
+        self.conection = sqlite3.connect('{}\\SalesSystem-master\\SalesDataBase.db'.format(caminhoAtual))
         self.cur = self.conection.cursor()
 
     def registerProduct(self, barCode, name, purchasePrice):

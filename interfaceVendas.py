@@ -4,6 +4,7 @@ from tkinter import messagebox
 from time import gmtime, strftime
 
 from interfaceCadastroProduto import interfaceProduct
+from interfaceContabilidade import cont
 
 class interfaceSales(Frame):
 
@@ -98,6 +99,7 @@ class interfaceSales(Frame):
         self.window.bind("<Return>", self.keyPressed)
         self.window.bind("<KeyPress-s>", self.keyPressed)
         self.window.bind("<KeyPress-p>", self.keyPressed)
+        self.window.bind("<KeyPress-c>", self.keyPressed)
 
         self.scrollbar.config(command=self.listbox.get)
         self.window.mainloop()
@@ -198,6 +200,13 @@ class interfaceSales(Frame):
 
             #CADASTRO DE PRODUTOS
             interfaceProduct()
+
+        elif l == "c":
+            #LIMPAR LOCAL DE CODIGO DE BARRAS
+            self.etCodProd.delete(0, END)
+
+            #CADASTRO DE PRODUTOS
+            cont()
 
     def finishSale(self):
 
@@ -323,10 +332,5 @@ class interfaceSales(Frame):
         self.windowTroco.bind("<KeyPress-f>", self.keyPressed)
 
         self.windowTroco.mainloop()
-
-        # ----------------------------- JANELA FECHADA -----------------------------
-
-        #FOCAR NO CÓDIGO DE BARRAS
-        self.etCodProd.focus()
 
 interfaceSales()

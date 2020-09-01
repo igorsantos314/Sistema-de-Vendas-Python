@@ -94,9 +94,7 @@ class cont:
         btBusca.pack(pady=10)
 
         #EXIBIR O VALOR VENDIDO NO DIA
-        lblTotalDia = Label(text='', font='Courier 15 bold', fg='red')
+        lblTotalDia = Label(self.windowCont, text='', font='Courier 15 bold', fg='red')
         lblTotalDia.pack(pady=8)
 
         self.windowCont.mainloop()
-
-cont()
