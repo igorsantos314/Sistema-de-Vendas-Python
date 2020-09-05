@@ -6,6 +6,7 @@ from time import gmtime, strftime
 from interfaceCadastroProduto import interfaceProduct
 from interfaceContabilidade import cont
 from interfaceListaProdutos import listProducts
+from ModulePrint import printComprovante
 
 class interfaceSales(Frame):
 
@@ -94,7 +95,7 @@ class interfaceSales(Frame):
         self.listbox.ItemIndex = 49;
 
         #INFORMAÇÕES PARA CHAMAR MODULOS
-        lblInfo = Label(text='s - FINALIZAR VENDA*   z- CANCELAR VENDA   l - LISTAR PROD.   p - MCP*   c - MBV*', fg='red', font='Courier 8 bold')
+        lblInfo = Label(text='s - FINALIZAR VENDA*   z- CANCELAR VENDA*   l - LISTAR PROD.*   p - PROD.*   c - CONTABILIDADE*', fg='BLACK', font='Courier 8 bold')
         lblInfo.place(x=10, y=660)
 
         #aguadar o enter do usuario
@@ -176,7 +177,7 @@ class interfaceSales(Frame):
                 #LIMPAR CAIXA DE QUANTIDADE E INFORMAÇÕES DO PRODUTO
                 self.entryAmountProd.delete(0, END)
                 self.lblNameProd['text'] = ''
-                self.lblValueProduct['text'] = ''
+                self.lblValueProduct['text'] = '' 
 
                 #INSERIR TUPLA NOVA NA LISTA
                 self.listaVenda.append(tuplaDadosCompra)
@@ -237,6 +238,10 @@ class interfaceSales(Frame):
                 #ADCIONAR CADA PRODUTO
                 self.ConnectionBD.registerSale(prod[0], prod[1], prod[2], prod[3], prod[4], prod[5])
 
+            #REALIZAR IMPRESSAO
+            if messagebox.askyesno('FINALIZAR COMPRA', 'EMITIR NOTA?') == True:
+                printComprovante(self.listaVenda)
+
             # --------------------- LIMPAR TODOS OS DADOS ---------------------
 
             #LIMPAR LISTBOX
@@ -266,7 +271,7 @@ class interfaceSales(Frame):
 
         #ATUALIZAR VALORES
         self.lblAmountVariable['text'] = amount
-        self.lblTotalVariable['text'] = value
+        self.lblTotalVariable['text'] = '{:.2f}'.format(value)
 
 
     def entryProduct(self, barCodeS):
@@ -303,7 +308,7 @@ class interfaceSales(Frame):
         lblValor = Label(self.windowTroco, text='            VALOR DA VENDA:            ', font='Courier 15 bold')
         lblValor.pack()
 
-        lblTotal = Label(self.windowTroco, text='R$ {:.2f}'.format(valor), font='Courier 35 bold', fg='orange')
+        lblTotal = Label(self.windowTroco, text='R$ {}'.format(valor), font='Courier 35 bold', fg='orange')
         lblTotal.pack(pady=8)
 
         # --------- INFORMAR O VALOR ---------
