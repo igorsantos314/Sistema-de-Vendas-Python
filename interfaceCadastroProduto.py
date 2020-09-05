@@ -8,11 +8,11 @@ class interfaceProduct(Frame):
 
         defaultFont = 'Arial 12'
 
-        #objeto de banco de dados
+        #OBEJETO DE BANCO DE DADOS
         self.dataBase = bd()
 
         self.window = Tk()
-        self.window.geometry('300x200')
+        self.window.resizable(False, False)
         self.window.title('Product Register')
 
         #labels information
@@ -33,16 +33,16 @@ class interfaceProduct(Frame):
 
         self.etPurchasePrice = Entry(self.window, font=defaultFont)
         self.etPurchasePrice.pack(pady=5)
+        
+        btSalvar = Button(self.window, text='SALVAR PRODUTOS', font=defaultFont, width=25, height=2, command=self.setProduct)
+        btSalvar.pack(pady=5)
 
-        #Menu
-        myMenu = Menu(self.window, tearoff=0)
-        fileMenu = Menu(myMenu)
+        btLimpar = Button(self.window, text='LIMPAR', font=defaultFont, width=25, height=2, command=self.clearEts)
+        btLimpar.pack(pady=5)
 
-        fileMenu.add_command(label='Save Product', command=self.setProduct)
-        fileMenu.add_command(label='Clear', command=self.clearEts)
-        myMenu.add_cascade(label='File', menu=fileMenu)
+        btEditar = Button(self.window, text='EDITAR PRODUTOS', font=defaultFont, width=25, height=2, command='')
+        btEditar.pack(pady=5)
 
-        self.window.config(menu=myMenu)
         self.window.mainloop()
 
         # ----------------------------- JANELA FECHADA -----------------------------
@@ -68,7 +68,7 @@ class interfaceProduct(Frame):
             if len(nomeProd) > 14:
                 nomeProd = nomeProd[:14]
 
-            self.dataBase.registerProduct(self.getEtCode(), nomeProd, self.getEtPurchasePrice())
+            self.dataBase.registerProduct(self.getEtCode(), nomeProd, self.getEtPurchasePrice().replace(',', '.'))
             messagebox.showinfo('','PRODUTO CADASTRADO COM SUCESSO !')
         
         except:
@@ -82,3 +82,5 @@ class interfaceProduct(Frame):
         self.etName.delete(0, END)
         self.etCode.delete(0, END)
         self.etPurchasePrice.delete(0, END)
+
+#interfaceProduct()

@@ -56,7 +56,7 @@ class cont:
         comboAno.pack(pady=5)
 
         #LISTA DE PRODUTOS VENDIDOS
-        self.listbox = Listbox(self.windowCont, height=19, width=60, font='Courier 10', bg='LemonChiffon')
+        self.listbox = Listbox(self.windowCont, height=19, width=72, font='Courier 10', bg='LemonChiffon')
         self.listbox.pack()
 
         def buscarProds():
@@ -65,8 +65,8 @@ class cont:
             self.listbox.delete(0,'end')
 
             #DADOS BASE
-            self.listbox.insert('end', 'COD.           NOME         QUANT.     V UNT.    V.TOTAL')
-            self.listbox.insert('end', '--------------------------------------------------------------')
+            self.listbox.insert('end', 'COD.            NOME                QUANT.          V UNT.     V.TOTAL')
+            self.listbox.insert('end', '-----------------------------------------------------------------------')
 
             #OBJETO BD
             self.dataBase = bd()
@@ -82,9 +82,15 @@ class cont:
             for p in listaProds:
                 #PEGA A POSICAO DO VALOR TOTAL DA TUPLA
                 totalProducts += float(p[4])
-                
+
+                code = '{}{}'.format(p[0], " " * (14 - len(str(p[0]))))
+                nome = '{}{}'.format(p[1], " " * (14 - len(str(p[1]))))
+                valor = '{:.2f}{}'.format(p[3], " " * (8 - len(str(p[3]))))
+                quant = '{}{}'.format(p[2], " " * (4 - len(str(p[2]))))
+                total = '{:.2f}'.format(p[4])
+
                 #INSERIR NO LISTBOX
-                inforProductAdd = '{}  {}      {}         {}     {}'.format(p[0], p[1], p[2], p[3], p[4])
+                inforProductAdd = '{}  {}      {}         {}     {}'.format(code, nome, valor, quant, total)
                 self.listbox.insert('end', inforProductAdd)
                 
             lblTotalDia['text'] = 'Total: R$ {}'.format(totalProducts)
@@ -98,3 +104,5 @@ class cont:
         lblTotalDia.pack(pady=8)
 
         self.windowCont.mainloop()
+
+#cont()

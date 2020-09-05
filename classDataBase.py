@@ -6,7 +6,7 @@ class bd:
     def __init__(self):
         caminhoAtual = os.getcwd()
 
-        self.conection = sqlite3.connect('{}\\SalesSystem-master\\SalesDataBase.db'.format(caminhoAtual))
+        self.conection = sqlite3.connect('{}\\SalesDataBase.db'.format(caminhoAtual))
         self.cur = self.conection.cursor()
 
     def registerProduct(self, barCode, name, purchasePrice):
@@ -42,6 +42,16 @@ class bd:
 
         return listProduct
 
+    def getAllProducts(self):
+
+        #RETORNA LISTA DE PRODUTOS 
+        show = "SELECT * FROM products"
+        self.cur.execute(show)
+
+        listProduct = self.cur.fetchall()
+
+        return listProduct
+
 
     def createTableSale(self):
 
@@ -50,10 +60,10 @@ class bd:
         self.cur.execute(command)
         self.conection.commit()
 
+    
+
 BancoDados = bd()
 #BancoDados.createTableSale()
-
-a = '1234567891012'
 
 """
     def excluirTable(self):
