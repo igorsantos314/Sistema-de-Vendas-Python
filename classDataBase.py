@@ -85,13 +85,17 @@ class bd:
 
     def verifyProduct(self, barCode):
 
-        show = "SELECT * FROM products WHERE bar_code = {}".format(barCode)
-        self.cur.execute(show)
+        try:
+            show = "SELECT * FROM products WHERE bar_code = {}".format(barCode)
+            self.cur.execute(show)
 
-        if self.cur.fetchall() == []:
-            return False
+            if self.cur.fetchall() == []:
+                return False
+            
+            return True
         
-        return True
+        except:
+            pass
 
 
 BancoDados = bd()

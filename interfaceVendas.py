@@ -88,10 +88,6 @@ class interfaceSales(Frame):
         #sequencia de dados 
         self.dadosBaseListBox()
 
-        #teste de inserção
-        #for i in range(2):
-            #self.listbox.insert('end', '1234567891012  TECLADO MULTI 150.25    2      300.50')
-
         self.listbox.ItemIndex = 49;
 
         #INFORMAÇÕES PARA CHAMAR MODULOS
@@ -120,7 +116,7 @@ class interfaceSales(Frame):
         s = self.var.get()
 
         #verifica se é igual a 13
-        if len(s) == 13:
+        if self.ConnectionBD.verifyProduct(s):
 
             #chamar funcao para adcionar produto e exibir informações
             self.entryProduct(s)

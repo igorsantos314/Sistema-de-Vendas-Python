@@ -1,13 +1,10 @@
 Mercadinho São Luiz
 -------------------
-Data e Hora: 05/09/2020
+Data e Hora: 06/09/2020 20:14
 -------------------
-TOTAL: R$273.60
+TOTAL: R$2020.20
 
-HAND SPI      15.20    1   15.20
-HAND SPI      15.20    8   121.60
-HAND SPI      15.20    1   15.20
-HAND SPI      15.20    8   121.60
+IPHONE X      2020.20  1   2020.20
 
 
  ----> Obrigado e Volte Sempre ! <----
