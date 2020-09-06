@@ -62,14 +62,19 @@ class interfaceProduct(Frame):
     def setProduct(self):
         
         try:
-            nomeProd = self.getEtName()
+            #VERIFICA SE PRODUTO EXISTE
+            if self.dataBase.verifyProduct(self.getEtCode()) == False:
+                nomeProd = self.getEtName()
 
-            #TRATAR TAMANHO DA PALAVRA
-            if len(nomeProd) > 14:
-                nomeProd = nomeProd[:14]
+                #TRATAR TAMANHO DA PALAVRA
+                if len(nomeProd) > 14:
+                    nomeProd = nomeProd[:14]
 
-            self.dataBase.registerProduct(self.getEtCode(), nomeProd, self.getEtPurchasePrice().replace(',', '.'))
-            messagebox.showinfo('','PRODUTO CADASTRADO COM SUCESSO !')
+                self.dataBase.registerProduct(self.getEtCode(), nomeProd, self.getEtPurchasePrice().replace(',', '.'))
+                messagebox.showinfo('','PRODUTO CADASTRADO COM SUCESSO !')
+
+            else:
+                messagebox.showerror('','PRODUTO JÁ ESTÁ CADASTRADO !')
         
         except:
             messagebox.showerror('NÃO FOI POSSÍVEL CADASTRAR ESTE PRODUTO','VERIFIQUE SE AS INFORMAÇÕES ESTÃO CORRETAS!')

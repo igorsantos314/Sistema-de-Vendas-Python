@@ -52,6 +52,29 @@ class bd:
 
         return listProduct
 
+    def changeCod(self, barCodeOld, barCodeNew):
+
+        show = ('UPDATE products SET bar_code = {} WHERE bar_code= {}'.format(barCodeNew, barCodeOld))
+        self.cur.execute(show)
+
+        #CONSOLIDAR NA BASE DE DADOS
+        self.conection.commit()
+
+    def changeName(self, barCode, name):
+
+        show = ('UPDATE products SET nome = "{}" WHERE bar_code= {}'.format(name, barCode))
+        self.cur.execute(show)
+
+        #CONSOLIDAR NA BASE DE DADOS
+        self.conection.commit()
+    
+    def changeValue(self, barCode, value):
+
+        show = ('UPDATE products SET valor = {} WHERE bar_code= {}'.format(value, barCode))
+        self.cur.execute(show)
+
+        #CONSOLIDAR NA BASE DE DADOS
+        self.conection.commit()
 
     def createTableSale(self):
 
@@ -60,9 +83,21 @@ class bd:
         self.cur.execute(command)
         self.conection.commit()
 
-    
+    def verifyProduct(self, barCode):
+
+        show = "SELECT * FROM products WHERE bar_code = {}".format(barCode)
+        self.cur.execute(show)
+
+        if self.cur.fetchall() == []:
+            return False
+        
+        return True
+
 
 BancoDados = bd()
+#BancoDados.changeCod(8888888888888, 123)
+#BancoDados.changeName(123, 'CARTEIRA')
+#BancoDados.changeValue(123, 12.5)
 #BancoDados.createTableSale()
 
 """
