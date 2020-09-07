@@ -20,14 +20,14 @@ class interfaceSales(Frame):
         self.window = Tk()
         self.window.geometry('1100x680')
         self.window.resizable(False, False)
-        self.window.title('SETOR DE VENDAS -- ISS')
+        self.window.title('SETOR DE VENDAS --> LICENCIADO PARA CARLOS -- ISS')
 
         #variavel de codigo de barras
         self.var = StringVar()
         self.var.trace("w", self.on_write)
 
         #labels information
-        self.lblSalesSector = Label(self.window, text='SETOR DE VENDAS', width=500, height=1, font='Arial 25 bold', fg='white', bg='Maroon')
+        self.lblSalesSector = Label(self.window, text='MERCADINHO SÃO LUIZ - CARLOS', width=500, height=1, font='Arial 25 bold', fg='white', bg='Maroon')
         self.lblSalesSector.pack()
 
         self.banner = Label(self.window, text='', width=500, height=1, font='Arial 25 bold', fg='white', bg='Maroon')
@@ -91,16 +91,25 @@ class interfaceSales(Frame):
         self.listbox.ItemIndex = 49;
 
         #INFORMAÇÕES PARA CHAMAR MODULOS
-        lblInfo = Label(text='s - FINALIZAR VENDA*   z- CANCELAR VENDA*   l - LISTAR PROD.*   p - PROD.*   c - CONTABILIDADE*', fg='BLACK', font='Courier 8 bold')
+        lblInfo = Label(text='s - FINALIZAR VENDA*   z - CANCELAR VENDA*   l - LISTAR PROD.*   p - PROD.*   c - CONTABILIDADE*', fg='BLACK', font='Courier 8 bold')
         lblInfo.place(x=10, y=660)
 
         #aguadar o enter do usuario
         self.window.bind("<Return>", self.keyPressed)
         self.window.bind("<KeyPress-s>", self.keyPressed)
+        self.window.bind("<KeyPress-S>", self.keyPressed)
+
         self.window.bind("<KeyPress-p>", self.keyPressed)
+        self.window.bind("<KeyPress-P>", self.keyPressed)
+
         self.window.bind("<KeyPress-c>", self.keyPressed)
+        self.window.bind("<KeyPress-C>", self.keyPressed)
+
         self.window.bind("<KeyPress-z>", self.keyPressed)
+        self.window.bind("<KeyPress-Z>", self.keyPressed)
+
         self.window.bind("<KeyPress-l>", self.keyPressed)
+        self.window.bind("<KeyPress-L>", self.keyPressed)
 
         self.scrollbar.config(command=self.listbox.get)
         self.window.mainloop()
@@ -184,7 +193,8 @@ class interfaceSales(Frame):
             else:
                 messagebox.showerror('','POR FAVOR, ENTRE COM ALGUM PRODUTO !')
             
-        elif l == "s":
+        elif l == "s" or l == 'S':
+
             if self.lblTotalVariable['text'] == '00.00':
                 messagebox.showwarning('', 'POR FAVOR, REALIZE UMA COMPRA !')
                 
@@ -200,26 +210,27 @@ class interfaceSales(Frame):
 
                 #CALCULA O TROCO
                 self.moduloTroco(valorCompra)
+            
         
-        elif l == "p":
+        elif l == "p" or l == 'P':
             #LIMPAR LOCAL DE CODIGO DE BARRAS
             self.etCodProd.delete(0, END)
 
             #CADASTRO DE PRODUTOS
             interfaceProduct()
 
-        elif l == "c":
+        elif l == "c" or l == 'C':
             #LIMPAR LOCAL DE CODIGO DE BARRAS
             self.etCodProd.delete(0, END)
 
             #CADASTRO DE PRODUTOS
             cont()
 
-        elif l == "z":
+        elif l == "z" or l == 'Z':
             #CANCELAR VENDA E LIMPAR TUDO
             self.saleClean()
 
-        elif l == "l":
+        elif l == "l" or l == 'L':
             #CALL EM JANELA DE PRODUTOS
             listProducts()
 
@@ -382,7 +393,7 @@ class interfaceSales(Frame):
         
         #DADOS INFORMACIONAIS
         self.listbox.insert("end", 'CODE            PROD.                VAL UNT.       QUANT.  VAL. TOTAL')
-        self.listbox.insert("end", '-----------------------------------------------------------------------')
+        self.listbox.insert("end", '-----------------------------------------------------------------------')        
 
 if __name__ == '__main__':
     interfaceSales()

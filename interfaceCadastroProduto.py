@@ -40,9 +40,6 @@ class interfaceProduct(Frame):
         btLimpar = Button(self.window, text='LIMPAR', font=defaultFont, width=25, height=2, command=self.clearEts)
         btLimpar.pack(pady=5)
 
-        btEditar = Button(self.window, text='EDITAR PRODUTOS', font=defaultFont, width=25, height=2, command='')
-        btEditar.pack(pady=5)
-
         self.window.mainloop()
 
         # ----------------------------- JANELA FECHADA -----------------------------
