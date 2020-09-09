@@ -52,6 +52,16 @@ class bd:
 
         return listProduct
 
+    def getNameProducts(self, name):
+
+        #RETORNA A LISTA DE PRODUTOS COM O NOME CORRESPONDENTE
+        show = "SELECT * FROM products WHERE nome like '%{}%'".format(name)
+        self.cur.execute(show)
+
+        listProduct = self.cur.fetchall()
+
+        return listProduct
+
     def changeCod(self, barCodeOld, barCodeNew):
 
         show = ('UPDATE products SET bar_code = {} WHERE bar_code= {}'.format(barCodeNew, barCodeOld))
@@ -79,6 +89,13 @@ class bd:
     def createTableSale(self):
 
         command = 'Create table sales ( bar_code int, nome varchar(30), quantidade int, valor double, total double, data date )'
+
+        self.cur.execute(command)
+        self.conection.commit()
+
+    def dropProduct(self, barCode):
+        #EXCLUIR PRODUTO
+        command = 'DELETE FROM products WHERE bar_code = {}'.format(barCode)
 
         self.cur.execute(command)
         self.conection.commit()

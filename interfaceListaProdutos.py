@@ -27,13 +27,28 @@ class listProducts:
 
         fileMenuSalvar.add_separator()
 
-        fileMenuSalvar.add_command(label='ATUALIZAR LISTA DE PRODUTOS', command=lambda: listProducts())
+        fileMenuSalvar.add_command(label='DELETAR PRODUTO', command=lambda: self.deleteProd(self.getBarCode(self.listbox.get(ACTIVE))))
+
+        fileMenuSalvar.add_separator()
+
+        fileMenuSalvar.add_command(label='ATUALIZAR LISTA DE PRODUTOS', command=lambda: listProducts(self.dataBase.getAllProducts()))
         menubar.add_cascade(label="EDITAR", menu=fileMenuSalvar)
+
+        #BARRA DE PESQUISA
+        lbl = Label(text='BUSCAR PRODUTOS:')
+        lbl.pack(pady=5)
+
+        etPesquisa = Entry(self.windowProducts, font='Courier 15')
+        etPesquisa.pack(pady=5)
+
+        #BOTAO DE PESQUISA, CHAMA A FUNCAO NO BD E ADICIONA LISTA DE PRODUTOS NO LISBOX
+        btBusca = Button(text='PESQUISAR', height=2, width=15, command= lambda: listProducts(self.dataBase.getNameProducts(etPesquisa.get().upper())))
+        btBusca.pack(pady=5)
         
         self.listbox = Listbox(self.windowProducts, height=34, width=42, font='Courier 10', bg='LemonChiffon')
         self.listbox.pack()
 
-        def listProducts():
+        def listProducts(lista):
             
             #LIMPAR PARA REFRESH
             self.listbox.delete(0, END)
@@ -43,13 +58,13 @@ class listProducts:
             self.listbox.insert("end", '-----------------------------------------')
 
             #LISTAR PRODUTOS
-            for p in self.dataBase.getAllProducts():
+            for p in lista:
                 
                 data = self.formatProduct(p)
                 self.listbox.insert('end', data)
 
         #LISTA PRODUTOS
-        listProducts()
+        listProducts(self.dataBase.getAllProducts())
 
         #configurar file menu
         self.windowProducts.config(menu=menubar)
@@ -170,4 +185,16 @@ class listProducts:
 
         window.mainloop()
 
-#listProducts()
+    def deleteProd(self, barCode):
+
+        if self.dataBase.verifyProduct(barCode):
+
+            if messagebox.askyesno('', 'Deseja Deletar Produto [{}]'.format(barCode)) == True:
+                
+                #DELETAR PRODUTO
+                self.dataBase.dropProduct(barCode)
+
+                messagebox.showinfo('','PRODUTO DELETADO COM SUCESSO !')
+
+
+listProducts()
