@@ -18,7 +18,7 @@ class listProducts:
         #BARRA DE FUNÇÕES
         menubar = Menu(self.windowProducts)
         myMenu = Menu(menubar, tearoff=0)
-
+        
         #Menu de vendedores
         fileMenuSalvar = Menu(myMenu)
         fileMenuSalvar.add_command(label='CÓDIGO DE BARRAS', command=lambda: self.windowChangeCod(self.getBarCode(self.listbox.get(ACTIVE))))
@@ -196,5 +196,4 @@ class listProducts:
 
                 messagebox.showinfo('','PRODUTO DELETADO COM SUCESSO !')
 
-
-listProducts()
+#listProducts()

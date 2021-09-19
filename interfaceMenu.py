@@ -9,7 +9,7 @@ class menuGeral:
         self.windowMenu = Tk()
         self.windowMenu.title('SISMTEA DE VENDAS -- ISS')
         self.windowMenu.resizable(False, False)
-
+        
         def callModule(wind):
             
             #DESTRUIR JANELA
